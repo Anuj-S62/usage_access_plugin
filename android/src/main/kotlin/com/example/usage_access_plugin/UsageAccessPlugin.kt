@@ -83,9 +83,7 @@ class UsageAccessPlugin: FlutterPlugin, MethodCallHandler,ActivityAware{
 
   private fun requestUsageAccessPermission() {
     val intent = Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS)
-    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-    intent.data = Uri.parse("package:${context.packageName}")
-    context.startActivity(intent)
+    this.activity.startActivity(intent)
   }
 
 
