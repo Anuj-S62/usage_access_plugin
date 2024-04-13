@@ -19,13 +19,19 @@ class UsageAccessPluginException implements Exception {
 
 class UsageAccessInfo {
   late bool isUsageAccessGranted;
+  late bool isScreenOn;
 
-  UsageAccessInfo(bool isUsageAccessGranted) {
+  UsageAccessInfo(bool isUsageAccessGranted, bool isScreenOn) {
     this.isUsageAccessGranted = isUsageAccessGranted;
+    this.isScreenOn = isScreenOn;
   }
 
   bool getIsUsageAccessGranted() {
     return isUsageAccessGranted;
+  }
+
+  bool getScreenStatus(){
+    return isScreenOn;
   }
 
 }
@@ -40,7 +46,8 @@ class UsageAccess{
   Future<UsageAccessInfo> getUsageAccessInfo() async {
     try {
       final bool isUsageAccessGranted = await _channel.invokeMethod('checkUsageAccessPermission');
-      return UsageAccessInfo(isUsageAccessGranted);
+      final bool isScreenOn = await _channel.invokeMethod('isScreenOn');
+      return UsageAccessInfo(isUsageAccessGranted, isScreenOn);
     } on PlatformException catch (e) {
       throw UsageAccessPluginException(e.message!);
     }

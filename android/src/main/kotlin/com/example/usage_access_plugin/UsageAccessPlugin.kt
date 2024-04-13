@@ -59,6 +59,10 @@ class UsageAccessPlugin: FlutterPlugin, MethodCallHandler,ActivityAware{
         requestUsageAccessPermission()
         result.success(null)
       }
+        "isScreenOn" -> {
+            val screenOn = isScreenOn()
+            result.success(screenOn)
+        }
       else -> result.notImplemented()
     }
   }
@@ -78,12 +82,18 @@ class UsageAccessPlugin: FlutterPlugin, MethodCallHandler,ActivityAware{
         android.os.Process.myUid(), context.packageName
       )
     }
+//    return isScreenOn();
     return mode == AppOpsManager.MODE_ALLOWED
   }
 
   private fun requestUsageAccessPermission() {
     val intent = Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS)
     this.activity.startActivity(intent)
+  }
+
+  private fun isScreenOn(): Boolean {
+    val powerManager = context.getSystemService(Context.POWER_SERVICE) as android.os.PowerManager
+    return powerManager.isInteractive
   }
 
 

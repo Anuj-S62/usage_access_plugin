@@ -27,7 +27,7 @@ class _MyAppState extends State<MyApp> {
     late bool per;
     try {
       UsageAccessInfo temp = await UsageAccess().getUsageAccessInfo();
-      per = temp.getIsUsageAccessGranted();
+      per = temp.getScreenStatus();
     } on PlatformException {
       per = false;
     }
