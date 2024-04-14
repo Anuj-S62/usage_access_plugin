@@ -28,6 +28,8 @@ class _MyAppState extends State<MyApp> {
     try {
       UsageAccessInfo temp = await UsageAccess().getUsageAccessInfo();
       per = temp.getScreenStatus();
+      // print(temp.isScreenOn);
+      // print(temp.isUsageAccessGranted);
     } on PlatformException {
       per = false;
     }
