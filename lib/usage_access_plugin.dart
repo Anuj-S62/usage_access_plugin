@@ -46,7 +46,7 @@ class UsageAccess{
   Future<UsageAccessInfo> getUsageAccessInfo() async {
     try {
       final bool isUsageAccessGranted = await _channel.invokeMethod('checkUsageAccessPermission');
-      final bool isScreenOn = true;
+      final bool isScreenOn = await _channel.invokeMethod('isScreenOn');
       return UsageAccessInfo(isUsageAccessGranted, isScreenOn);
     } on PlatformException catch (e) {
       throw UsageAccessPluginException(e.message!);
